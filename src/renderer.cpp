@@ -4,11 +4,13 @@
 
 Renderer::Renderer(const std::size_t screen_width,
                    const std::size_t screen_height,
-                   const std::size_t grid_width, const std::size_t grid_height)
+                   const std::size_t grid_width, const std::size_t grid_height, 
+                   const std::size_t wall_width)
     : screen_width(screen_width),
       screen_height(screen_height),
       grid_width(grid_width),
-      grid_height(grid_height) {
+      grid_height(grid_height),
+      wall_width(wall_width){
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     std::cerr << "SDL could not initialize.\n";
@@ -40,12 +42,29 @@ Renderer::~Renderer() {
 
 void Renderer::Render(Snake const snake, SDL_Point const &food) {
   SDL_Rect block;
-  block.w = screen_width / grid_width;
-  block.h = screen_height / grid_height;
+  block.w = (screen_width-wall_width) / grid_width;
+  block.h = (screen_height-wall_width) / grid_height;
 
   // Clear screen
+  //SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
+  //SDL_RenderClear(sdl_renderer);
+  
+  // Draw Wall
+  SDL_SetRenderDrawColor(sdl_renderer, 0x7F, 0x1E, 0x1E, 0xFF);
+  SDL_Rect wall;
+  wall.x = 0;
+  wall.y = 0;
+  wall.w = screen_width;
+  wall.h = screen_height;
+  SDL_RenderFillRect(sdl_renderer, &wall);
+   
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
-  SDL_RenderClear(sdl_renderer);
+  SDL_Rect playGround;
+  playGround.x = wall_width;
+  playGround.y = wall_width;
+  playGround.w = screen_width - wall_width;
+  playGround.h = screen_height - wall_width;
+  SDL_RenderFillRect(sdl_renderer, &playGround);
 
   // Render food
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xCC, 0x00, 0xFF);

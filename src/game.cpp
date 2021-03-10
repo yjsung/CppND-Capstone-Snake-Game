@@ -2,11 +2,12 @@
 #include <iostream>
 #include "SDL.h"
 
-Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : snake(grid_width, grid_height),
+Game::Game(std::size_t grid_width, std::size_t grid_height,  std::size_t wall_width)
+    : snake(grid_width, grid_height, wall_width),
       engine(dev()),
-      random_w(0, static_cast<int>(grid_width)),
-      random_h(0, static_cast<int>(grid_height)) {
+      random_w(0, static_cast<int>(grid_width-2*wall_width)),
+      random_h(0, static_cast<int>(grid_height-2*wall_width)),
+	  wall_width(wall_width){
   PlaceFood();
 }
 
@@ -53,8 +54,8 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 void Game::PlaceFood() {
   int x, y;
   while (true) {
-    x = random_w(engine);
-    y = random_h(engine);
+    x = random_w(engine) + wall_width;
+    y = random_h(engine) + wall_width;
     // Check that the location is not occupied by a snake item before placing
     // food.
     if (!snake.SnakeCell(x, y)) {
