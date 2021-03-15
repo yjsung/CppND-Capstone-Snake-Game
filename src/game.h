@@ -7,8 +7,10 @@
 #include "renderer.h"
 #include "snake.h"
 
+enum gamePhase{START, RUNNING, END};
+
 class Game {
- public:
+ public:  
   Game(std::size_t grid_width, std::size_t grid_height, std::size_t wall_width);
   void Run(Controller const &controller, Renderer &renderer,
            std::size_t target_frame_duration);
@@ -18,6 +20,7 @@ class Game {
  private:
   Snake snake;
   SDL_Point food;
+  gamePhase gPhase = START;
 
   std::random_device dev;
   std::mt19937 engine;

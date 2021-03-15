@@ -12,8 +12,8 @@ class Snake {
       : grid_width(grid_width),
         grid_height(grid_height),
         wall_width(wall_width),
-        head_x(grid_width / 2),
-        head_y(grid_height / 2) {}
+        head_x(grid_width / 2 ),
+        head_y(grid_height / 2 ) {}
 
   void Update();
 

@@ -12,7 +12,7 @@ Game::Game(std::size_t grid_width, std::size_t grid_height,  std::size_t wall_wi
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
-               std::size_t target_frame_duration) {
+           std::size_t target_frame_duration) {
   Uint32 title_timestamp = SDL_GetTicks();
   Uint32 frame_start;
   Uint32 frame_end;
@@ -22,12 +22,25 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
   while (running) {
     frame_start = SDL_GetTicks();
-
-    // Input, Update, Render - the main game loop.
-    controller.HandleInput(running, snake);
-    Update();
-    renderer.Render(snake, food);
-
+    
+    switch (gPhase) {
+      case START :
+        
+        break;
+      case RUNNING:
+        // Input, Update, Render - the main game loop.
+        controller.HandleInput(running, snake);
+        Update();
+        renderer.Render(snake, food);
+        break;
+        
+      case END:
+        break;
+        
+      default:
+        break;    
+    }
+    
     frame_end = SDL_GetTicks();
 
     // Keep track of how long each loop through the input/update/render cycle
