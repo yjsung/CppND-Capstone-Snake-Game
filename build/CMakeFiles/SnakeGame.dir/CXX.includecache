@@ -17,6 +17,8 @@ string
 /home/workspace/CppND-Capstone-Snake-Game/src/renderer.h
 vector
 -
+string
+-
 SDL.h
 /home/workspace/CppND-Capstone-Snake-Game/src/SDL.h
 SDL_ttf.h

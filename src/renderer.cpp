@@ -40,14 +40,14 @@ Renderer::Renderer(const std::size_t screen_width,
   if (nullptr == font) {
     std::cout << "error while opening font\n";
   }
-  SDL_Color White = {255, 255, 255};
-  surfaceMessage = TTF_RenderText_Solid(font, "Press *space* to start", White);
-  texture = SDL_CreateTextureFromSurface(sdl_renderer, surfaceMessage);
+  //SDL_Color White = {255, 255, 255};
+  //surfaceMessage = TTF_RenderText_Blended(font, "Snake Game \n Press *space* to start", White);
+  //texture = SDL_CreateTextureFromSurface(sdl_renderer, surfaceMessage);
 }
 
 Renderer::~Renderer() {
-  SDL_DestroyTexture(texture);
-  SDL_FreeSurface(surfaceMessage);
+  //SDL_DestroyTexture(texture);
+  //SDL_FreeSurface(surfaceMessage);
   TTF_CloseFont(font);
   SDL_DestroyWindow(sdl_window);
   TTF_Quit();
@@ -109,16 +109,27 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
   SDL_RenderPresent(sdl_renderer);
 }
 
+void Renderer::RenderText(int x, int y, const char* text) {
+  SDL_Color White = {255, 255, 255};
+  SDL_Surface* surfaceMessage = TTF_RenderText_Blended(font, text, White);
+  SDL_Texture* texture = SDL_CreateTextureFromSurface(sdl_renderer, surfaceMessage);
+  
+  int msgWidth = 0, msgHeight = 0;
+  SDL_QueryTexture(texture, NULL, NULL, &msgWidth, &msgHeight);
+  SDL_Rect msgRect = {x, y, msgWidth, msgHeight};
+  SDL_RenderCopy(sdl_renderer, texture, NULL, &msgRect);
+  //SDL_RenderPresent(sdl_renderer);
+  SDL_DestroyTexture(texture);
+  SDL_FreeSurface(surfaceMessage);  
+}
+
+
 void Renderer::StartScrren() {
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_RenderClear(sdl_renderer); 
-  
-  SDL_Rect Message_rect;
-  Message_rect.x = 0;
-  Message_rect.y = 0;
-  Message_rect.w = 300;
-  Message_rect.h = 100;
-  SDL_RenderCopy(sdl_renderer, texture, NULL, &Message_rect); 
+  RenderText(0, 0, "Snake Game");
+  RenderText(0, 100, "Press space bar to start");
+  //SDL_RenderCopy(sdl_renderer, texture, NULL, &Message_rect); 
   
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
