@@ -7,8 +7,6 @@
 #include "renderer.h"
 #include "snake.h"
 
-enum gamePhase{START, RUNNING, END};
-
 class Game {
  public:  
   Game(std::size_t grid_width, std::size_t grid_height, std::size_t wall_width);
@@ -30,7 +28,7 @@ class Game {
   int score{0};
 
   void PlaceFood();
-  void Update();
+  void Update(gamePhase &gPhase);
   
   int wall_width;
 };

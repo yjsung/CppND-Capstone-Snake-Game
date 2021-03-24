@@ -25,16 +25,25 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     
     switch (gPhase) {
       case START :
-        
+        controller.HandleInput(running, snake, gPhase);
+        renderer.StartScrren();
         break;
       case RUNNING:
         // Input, Update, Render - the main game loop.
-        controller.HandleInput(running, snake);
-        Update();
+        controller.HandleInput(running, snake, gPhase);
+        Update(gPhase);
         renderer.Render(snake, food);
         break;
         
-      case END:
+      case DIE:
+        controller.HandleInput(running, snake, gPhase);
+        if (gPhase == RUNNING) {
+          snake.Reset();
+        }
+        break;
+        
+      case CLOSING:
+        running = false;
         break;
         
       default:
@@ -79,8 +88,11 @@ void Game::PlaceFood() {
   }
 }
 
-void Game::Update() {
-  if (!snake.alive) return;
+void Game::Update(gamePhase &gPhase) {
+  if (!snake.alive) {
+    gPhase = DIE;
+    return;    
+  }
 
   snake.Update();
 

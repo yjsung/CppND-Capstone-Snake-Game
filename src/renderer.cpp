@@ -17,6 +17,8 @@ Renderer::Renderer(const std::size_t screen_width,
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
 
+  TTF_Init();
+
   // Create Window
   sdl_window = SDL_CreateWindow("Snake Game", SDL_WINDOWPOS_CENTERED,
                                 SDL_WINDOWPOS_CENTERED, screen_width,
@@ -33,10 +35,22 @@ Renderer::Renderer(const std::size_t screen_width,
     std::cerr << "Renderer could not be created.\n";
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
+        
+  font = TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 24);
+  if (nullptr == font) {
+    std::cout << "error while opening font\n";
+  }
+  SDL_Color White = {255, 255, 255};
+  surfaceMessage = TTF_RenderText_Solid(font, "Press *space* to start", White);
+  texture = SDL_CreateTextureFromSurface(sdl_renderer, surfaceMessage);
 }
 
 Renderer::~Renderer() {
+  SDL_DestroyTexture(texture);
+  SDL_FreeSurface(surfaceMessage);
+  TTF_CloseFont(font);
   SDL_DestroyWindow(sdl_window);
+  TTF_Quit();
   SDL_Quit();
 }
 
@@ -91,6 +105,21 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
   SDL_RenderFillRect(sdl_renderer, &block);
   
 
+  // Update Screen
+  SDL_RenderPresent(sdl_renderer);
+}
+
+void Renderer::StartScrren() {
+  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
+  SDL_RenderClear(sdl_renderer); 
+  
+  SDL_Rect Message_rect;
+  Message_rect.x = 0;
+  Message_rect.y = 0;
+  Message_rect.w = 300;
+  Message_rect.h = 100;
+  SDL_RenderCopy(sdl_renderer, texture, NULL, &Message_rect); 
+  
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
 }
