@@ -18,25 +18,24 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   Uint32 frame_end;
   Uint32 frame_duration;
   int frame_count = 0;
-  bool running = true;
 
-  while (running) {
+  while (snake.running) {
     frame_start = SDL_GetTicks();
     
     switch (snake.gPhase) {
       case START :
-        controller.HandleInput(running, snake);
+        controller.HandleInput(snake);
         renderer.ScreenForStart();
         break;
       case RUNNING:
         // Input, Update, Render - the main game loop.
-        controller.HandleInput(running, snake);
+        controller.HandleInput(snake);
         Update();
         renderer.Render(snake, food);
         break;
         
       case DIE:
-        controller.HandleInput(running, snake);
+        controller.HandleInput(snake);
         if (snake.gPhase == RUNNING) {
           snake.Reset();
           score = 0;
@@ -45,7 +44,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
         break;
         
       case CLOSING:        
-        running = false;
+        snake.running = false;
         break;
         
       default:

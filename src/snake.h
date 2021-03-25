@@ -34,7 +34,8 @@ class Snake {
   float head_y;
   std::vector<SDL_Point> body;
   
-  gamePhase gPhase = START;
+  gamePhase gPhase{START};
+  bool running{true};
 
  private:
   void UpdateHead();
