@@ -40,14 +40,9 @@ Renderer::Renderer(const std::size_t screen_width,
   if (nullptr == font) {
     std::cout << "error while opening font\n";
   }
-  //SDL_Color White = {255, 255, 255};
-  //surfaceMessage = TTF_RenderText_Blended(font, "Snake Game \n Press *space* to start", White);
-  //texture = SDL_CreateTextureFromSurface(sdl_renderer, surfaceMessage);
 }
 
 Renderer::~Renderer() {
-  //SDL_DestroyTexture(texture);
-  //SDL_FreeSurface(surfaceMessage);
   TTF_CloseFont(font);
   SDL_DestroyWindow(sdl_window);
   TTF_Quit();
@@ -58,11 +53,7 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
   SDL_Rect block;
   block.w = (screen_width- 2*wall_width) / grid_width;
   block.h = (screen_height- 2*wall_width) / grid_height;
-
-  // Clear screen
-  //SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
-  //SDL_RenderClear(sdl_renderer); 
-  
+ 
   // Draw Wall
   SDL_SetRenderDrawColor(sdl_renderer, 0x7F, 0x1E, 0x1E, 0xFF);
   SDL_Rect wall;
@@ -102,8 +93,7 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
   } else {
     SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
   }
-  SDL_RenderFillRect(sdl_renderer, &block);
-  
+  SDL_RenderFillRect(sdl_renderer, &block);  
 
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
@@ -118,19 +108,38 @@ void Renderer::RenderText(int x, int y, const char* text) {
   SDL_QueryTexture(texture, NULL, NULL, &msgWidth, &msgHeight);
   SDL_Rect msgRect = {x, y, msgWidth, msgHeight};
   SDL_RenderCopy(sdl_renderer, texture, NULL, &msgRect);
-  //SDL_RenderPresent(sdl_renderer);
+  
   SDL_DestroyTexture(texture);
   SDL_FreeSurface(surfaceMessage);  
 }
 
 
-void Renderer::StartScrren() {
+void Renderer::ScreenForStart() {
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_RenderClear(sdl_renderer); 
   RenderText(0, 0, "Snake Game");
-  RenderText(0, 100, "Press space bar to start");
-  //SDL_RenderCopy(sdl_renderer, texture, NULL, &Message_rect); 
+  RenderText(0, 50, "Press space bar to start");  
   
+  // Update Screen
+  SDL_RenderPresent(sdl_renderer);
+}
+
+void Renderer::ScreenForDie(int score) {
+  
+  char charBuffer[256];
+  SDL_SetRenderDrawColor(sdl_renderer, 0x7F, 0x1E, 0x1E, 0xFF);
+  SDL_SetRenderDrawBlendMode(sdl_renderer, SDL_BLENDMODE_BLEND);
+  SDL_Rect screen;
+  screen.x = 0;
+  screen.y = 0;
+  screen.w = screen_width;
+  screen.h = screen_height;
+  SDL_RenderFillRect(sdl_renderer, &screen);
+  
+  sprintf(charBuffer, "Your Score : %d", score);
+  RenderText(0, 0, charBuffer); 
+  RenderText(0, 50, "Press Up Key to RESTART");
+  RenderText(0, 100, "Press Down Key to closing");
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
 }

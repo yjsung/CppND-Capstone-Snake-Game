@@ -26,7 +26,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     switch (gPhase) {
       case START :
         controller.HandleInput(running, snake, gPhase);
-        renderer.StartScrren();
+        renderer.ScreenForStart();
         break;
       case RUNNING:
         // Input, Update, Render - the main game loop.
@@ -39,10 +39,12 @@ void Game::Run(Controller const &controller, Renderer &renderer,
         controller.HandleInput(running, snake, gPhase);
         if (gPhase == RUNNING) {
           snake.Reset();
+          score = 0;
         }
+        renderer.ScreenForDie(score);
         break;
         
-      case CLOSING:
+      case CLOSING:        
         running = false;
         break;
         

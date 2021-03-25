@@ -36,18 +36,13 @@ void Snake::UpdateHead() {
       head_x += speed;
       break;
   }
-
-  // Wrap the Snake around to the beginning if going off of the screen.
-  //head_x = fmod(head_x + grid_width, grid_width);
-  //head_y = fmod(head_y + grid_height, grid_height);
   
   if ( (head_x >= (grid_width+1)) || 
        (head_y >= (grid_height+1)) ||
        (head_x < 1) ||
        (head_y < 1) ) {    
     alive = false;
-  }
-  
+  }  
 }
 
 void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell) {
@@ -73,11 +68,14 @@ void Snake::UpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell) 
 void Snake::GrowBody() { growing = true; }
 
 void Snake::Reset() {
+ 
    head_x = grid_width / 2;
    head_y = grid_height / 2;
    speed = 0.1f;
    size = 1;
    alive = true;
+  
+   std::vector <SDL_Point>().swap(body);
 }
 
 // Inefficient method to check if cell is occupied by snake.

@@ -16,14 +16,13 @@ class Renderer {
   ~Renderer();
 
   void Render(Snake const snake, SDL_Point const &food);
-  void StartScrren();
+  void ScreenForStart();
+  void ScreenForDie(int score);
   void UpdateWindowTitle(int score, int fps);
 
  private:
   SDL_Window *sdl_window;
   SDL_Renderer *sdl_renderer;
-  //SDL_Surface* surfaceMessage;
-  //SDL_Texture* texture;
   TTF_Font * font;
   
   const std::size_t screen_width;
