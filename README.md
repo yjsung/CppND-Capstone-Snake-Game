@@ -27,6 +27,6 @@ This is a Stake game based on the starter code which is provided by Udacity C++ 
 4. Run it: `./SnakeGame`.
 
 ## Game Rule
-1. If snake eat the food, snake's body will grow and you'll get 1 score. 
-2. Every time snake eat the food, snake's speed will be faster.
+1. If snake eat the food, snake's body will grow and you'll get 1 point. 
+2. Every time when snake eat the food, snake's speed will be faster.
 3. If snake hit the wall or itself then game is over.
