@@ -9,16 +9,16 @@ void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
   return;
 }
 
-void Controller::HandleInput(bool &running, Snake &snake, gamePhase &gPhase) const {
+void Controller::HandleInput(bool &running, Snake &snake) const {
   SDL_Event e;
   while (SDL_PollEvent(&e)) {
     if (e.type == SDL_QUIT) {
       running = false;
     } else if (e.type == SDL_KEYDOWN) {
-      switch(gPhase) {
+      switch(snake.gPhase) {
         case START:
           if (e.key.keysym.sym == SDLK_SPACE) {
-            gPhase = RUNNING;
+            snake.gPhase = RUNNING;
           }
         break;
         case RUNNING:
@@ -47,10 +47,10 @@ void Controller::HandleInput(bool &running, Snake &snake, gamePhase &gPhase) con
         case DIE:
           switch (e.key.keysym.sym) {
             case SDLK_UP:
-              gPhase = RUNNING;
+              snake.gPhase = RUNNING;
             break;
             case SDLK_DOWN:
-              gPhase = CLOSING;
+              snake.gPhase = CLOSING;
             break;
           }
           

@@ -17,8 +17,7 @@ class Game {
 
  private:
   Snake snake;
-  SDL_Point food;
-  gamePhase gPhase = START;
+  SDL_Point food; 
 
   std::random_device dev;
   std::mt19937 engine;
@@ -28,7 +27,7 @@ class Game {
   int score{0};
 
   void PlaceFood();
-  void Update(gamePhase &gPhase);
+  void Update();
   
   int wall_width;
 };

@@ -23,21 +23,21 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   while (running) {
     frame_start = SDL_GetTicks();
     
-    switch (gPhase) {
+    switch (snake.gPhase) {
       case START :
-        controller.HandleInput(running, snake, gPhase);
+        controller.HandleInput(running, snake);
         renderer.ScreenForStart();
         break;
       case RUNNING:
         // Input, Update, Render - the main game loop.
-        controller.HandleInput(running, snake, gPhase);
-        Update(gPhase);
+        controller.HandleInput(running, snake);
+        Update();
         renderer.Render(snake, food);
         break;
         
       case DIE:
-        controller.HandleInput(running, snake, gPhase);
-        if (gPhase == RUNNING) {
+        controller.HandleInput(running, snake);
+        if (snake.gPhase == RUNNING) {
           snake.Reset();
           score = 0;
         }
@@ -90,9 +90,9 @@ void Game::PlaceFood() {
   }
 }
 
-void Game::Update(gamePhase &gPhase) {
+void Game::Update() {
   if (!snake.alive) {
-    gPhase = DIE;
+    snake.gPhase = DIE;
     return;    
   }
 
