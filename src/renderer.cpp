@@ -2,6 +2,25 @@
 #include <iostream>
 #include <string>
 
+template <typename T>
+T MessageQueue<T>::receive()
+{
+  std::unique_lock<std::mutex> ulck(_mutex);
+  _cond.wait(ulck, [this] {return !_queue.empty();});
+  T msg = std::move(_queue.back());
+  _queue.pop_back();
+  
+  return msg;
+}
+
+template <typename T>
+void MessageQueue<T>::send(T &&msg)
+{
+  std::lock_guard<std::mutex> lck(_mutex);
+  _queue.push_back(std::move(msg));
+  _cond.notify_one();
+}
+
 Renderer::Renderer(const std::size_t screen_width,
                    const std::size_t screen_height,
                    const std::size_t grid_width, const std::size_t grid_height, 
@@ -48,6 +67,32 @@ Renderer::~Renderer() {
   TTF_Quit();
   SDL_Quit();
 }
+
+void Renderer::InvokeRenderThread(Snake msg){
+  queue.send(std::move(msg));
+}
+void Renderer::RenderThread() {
+  bool flag = true;
+  while (flag) {
+    Snake msg = queue.receive();
+    UpdateWindowTitle(msg.score);    
+    switch (msg.gPhase) {
+      case START:
+        ScreenForStart();
+        break;
+      case RUNNING:
+        Render(msg);    
+        break;
+      case DIE:
+        ScreenForDie(msg.score);
+        break;
+      case CLOSING:
+        flag = false;
+        break;
+    }
+  }
+}
+
 
 void Renderer::Render(Snake const snake) {
   SDL_Rect block;
@@ -144,7 +189,9 @@ void Renderer::ScreenForDie(int score) {
   SDL_RenderPresent(sdl_renderer);
 }
 
-void Renderer::UpdateWindowTitle(int score, int fps) {
-  std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+//void Renderer::UpdateWindowTitle(int score, int fps) {
+void Renderer::UpdateWindowTitle(int score) {
+  //std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
+  std::string title{"Snake Score: " + std::to_string(score)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }

@@ -38,6 +38,8 @@ class Snake {
   bool running{true};
   
   SDL_Point food; 
+  
+  int score;
 
  private:
   void UpdateHead();
