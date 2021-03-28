@@ -10,14 +10,6 @@
 snake.h
 /home/workspace/CppND-Capstone-Snake-Game/src/snake.h
 
-/home/workspace/CppND-Capstone-Snake-Game/src/game.cpp
-game.h
-/home/workspace/CppND-Capstone-Snake-Game/src/game.h
-iostream
--
-SDL.h
-/home/workspace/CppND-Capstone-Snake-Game/src/SDL.h
-
 /home/workspace/CppND-Capstone-Snake-Game/src/game.h
 random
 -

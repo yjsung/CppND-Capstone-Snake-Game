@@ -23,13 +23,11 @@ void MessageQueue<T>::send(T &&msg)
 
 Renderer::Renderer(const std::size_t screen_width,
                    const std::size_t screen_height,
-                   const std::size_t grid_width, const std::size_t grid_height, 
-                   const std::size_t wall_width)
+                   const std::size_t grid_width, const std::size_t grid_height)
     : screen_width(screen_width),
       screen_height(screen_height),
       grid_width(grid_width),
-      grid_height(grid_height),
-      wall_width(wall_width){
+      grid_height(grid_height){
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     std::cerr << "SDL could not initialize.\n";
@@ -117,10 +115,6 @@ void Renderer::Render(Snake const snake) {
    
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_Rect playGround;
-  //playGround.x = wall_width;
-  //playGround.y = wall_width;
-  //playGround.w = screen_width - 2*wall_width;
-  //playGround.h = screen_height - 2*wall_width;
   playGround.x = block.w;
   playGround.y = block.h;
   playGround.w = screen_width - 2 *block.w;
