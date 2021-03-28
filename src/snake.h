@@ -36,6 +36,8 @@ class Snake {
   
   gamePhase gPhase{START};
   bool running{true};
+  
+  SDL_Point food; 
 
  private:
   void UpdateHead();

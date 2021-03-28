@@ -31,7 +31,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
         // Input, Update, Render - the main game loop.
         controller.HandleInput(snake);
         Update();
-        renderer.Render(snake, food);
+        renderer.Render(snake);
         break;
         
       case DIE:
@@ -82,8 +82,8 @@ void Game::PlaceFood() {
     // Check that the location is not occupied by a snake item before placing
     // food.
     if (!snake.SnakeCell(x, y)) {
-      food.x = x;
-      food.y = y;
+      snake.food.x = x;
+      snake.food.y = y;
       return;
     }
   }
@@ -101,7 +101,7 @@ void Game::Update() {
   int new_y = static_cast<int>(snake.head_y);
 
   // Check if there's food over here
-  if (food.x == new_x && food.y == new_y) {
+  if (snake.food.x == new_x && snake.food.y == new_y) {
     score++;
     PlaceFood();
     // Grow snake and increase speed.
