@@ -75,20 +75,25 @@ void Renderer::RenderThread() {
   bool flag = true;
   while (flag) {
     Snake msg = queue.receive();
-    UpdateWindowTitle(msg.score);    
-    switch (msg.gPhase) {
-      case START:
-        ScreenForStart();
-        break;
-      case RUNNING:
-        Render(msg);    
-        break;
-      case DIE:
-        ScreenForDie(msg.score);
-        break;
-      case CLOSING:
-        flag = false;
-        break;
+    if (msg.running == false) {
+      flag = false;
+    }
+    else{
+      UpdateWindowTitle(msg.score);    
+      switch (msg.gPhase) {
+        case START:
+          ScreenForStart();
+          break;
+        case RUNNING:
+          Render(msg);    
+          break;
+        case DIE:
+          ScreenForDie(msg.score);
+          break;
+        case CLOSING:
+          flag = false;
+          break;
+      }
     }
   }
 }
