@@ -401,7 +401,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_SDL2TTF:INTERNAL=[/usr/lib/x86_64-linux-gnu/libSDL2
 FIND_PACKAGE_MESSAGE_DETAILS_SDL2_TTF:INTERNAL=[/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so][/usr/include/SDL2][v()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
-SDL2TTF_LIBRARY_TEMP:INTERNAL=/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;-lpthread;-lpthread;-lpthread;-lpthread;-lpthread
+SDL2TTF_LIBRARY_TEMP:INTERNAL=/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;/usr/lib/x86_64-linux-gnu/libSDL2_ttf.so;-lpthread;-lpthread;-lpthread;-lpthread;-lpthread;-lpthread
 //ADVANCED property for variable: SDL2_IMAGE_INCLUDE_DIR
 SDL2_IMAGE_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SDL2_IMAGE_LIBRARY

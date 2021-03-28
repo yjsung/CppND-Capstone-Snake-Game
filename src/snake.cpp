@@ -37,8 +37,8 @@ void Snake::UpdateHead() {
       break;
   }
   
-  if ( (head_x >= (grid_width+1)) || 
-       (head_y >= (grid_height+1)) ||
+  if ( (head_x > (grid_width-1)) || 
+       (head_y > (grid_height-1)) ||
        (head_x < 1) ||
        (head_y < 1) ) {    
     alive = false;

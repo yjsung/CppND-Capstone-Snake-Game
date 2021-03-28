@@ -26,9 +26,10 @@ class Game {
   int score{0};
 
   void PlaceFood();
-  void Update();
-  
-  int wall_width;
+  void Update();  
+
+  int grid_width;
+  int grid_height;
 };
 
 #endif

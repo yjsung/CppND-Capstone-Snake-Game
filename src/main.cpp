@@ -5,16 +5,16 @@
 #include <thread>
 
 int main() {
-  constexpr std::size_t kFramesPerSecond{60};
+  constexpr std::size_t kFramesPerSecond{50};
   constexpr std::size_t kMsPerFrame{1000 / kFramesPerSecond};
-  constexpr std::size_t kScreenWidth{340}; // 340
-  constexpr std::size_t kScreenHeight{340}; // 340
-  constexpr std::size_t kGridWidth{32};
-  constexpr std::size_t kGridHeight{32};
-  constexpr std::size_t kWallWidth{10};
+  constexpr std::size_t kScreenWidth{680}; // 340
+  constexpr std::size_t kScreenHeight{680}; // 340
+  constexpr std::size_t kGridWidth{34};
+  constexpr std::size_t kGridHeight{34};
+  constexpr std::size_t kWallWidth{20};
 
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight, kWallWidth);
-  Controller controller;
+  Controller controller;  
   Game game(kGridWidth, kGridHeight, kWallWidth); 
   std::thread t1{ &Renderer::RenderThread, &renderer};
   game.Run(controller, renderer, kMsPerFrame); 

@@ -72,7 +72,7 @@ void Renderer::InvokeRenderThread(Snake msg){
   queue.send(std::move(msg));
 }
 void Renderer::RenderThread() {
-  bool flag = true;
+  static bool flag = true;
   while (flag) {
     Snake msg = queue.receive();
     if (msg.running == false) {
@@ -101,8 +101,10 @@ void Renderer::RenderThread() {
 
 void Renderer::Render(Snake const snake) {
   SDL_Rect block;
-  block.w = (screen_width- 2*wall_width) / grid_width;
-  block.h = (screen_height- 2*wall_width) / grid_height;
+  //block.w = (screen_width- 2*wall_width) / grid_width;
+  //block.h = (screen_height- 2*wall_width) / grid_height;
+  block.w = (screen_width) / grid_width;
+  block.h = (screen_height) / grid_height;
  
   // Draw Wall
   SDL_SetRenderDrawColor(sdl_renderer, 0x7F, 0x1E, 0x1E, 0xFF);
@@ -115,10 +117,14 @@ void Renderer::Render(Snake const snake) {
    
   SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
   SDL_Rect playGround;
-  playGround.x = wall_width;
-  playGround.y = wall_width;
-  playGround.w = screen_width - 2*wall_width;
-  playGround.h = screen_height - 2*wall_width;
+  //playGround.x = wall_width;
+  //playGround.y = wall_width;
+  //playGround.w = screen_width - 2*wall_width;
+  //playGround.h = screen_height - 2*wall_width;
+  playGround.x = block.w;
+  playGround.y = block.h;
+  playGround.w = screen_width - 2 *block.w;
+  playGround.h = screen_height -2 * block.h;
   SDL_RenderFillRect(sdl_renderer, &playGround);
 
   // Render food
@@ -194,9 +200,7 @@ void Renderer::ScreenForDie(int score) {
   SDL_RenderPresent(sdl_renderer);
 }
 
-//void Renderer::UpdateWindowTitle(int score, int fps) {
 void Renderer::UpdateWindowTitle(int score) {
-  //std::string title{"Snake Score: " + std::to_string(score) + " FPS: " + std::to_string(fps)};
   std::string title{"Snake Score: " + std::to_string(score)};
   SDL_SetWindowTitle(sdl_window, title.c_str());
 }
