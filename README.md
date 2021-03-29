@@ -14,7 +14,7 @@ This is a Stake game based on the starter code which is provided by Udacity C++ 
   * Note that for Linux, an `apt` or `apt-get` installation is preferred to building from source.
 * SDL2_ttf >= 2.0
   * sudo apt-get install libsdl2-ttf-dev
-* SDL >= 1.2.12
+* SDL_image >= 1.2.12
   * sudo apt-get install libsdl-image1.2-dev
 * gcc/g++ >= 5.4
   * Linux: gcc / g++ is installed by default on most Linux distros
