@@ -78,7 +78,6 @@ Renderer::~Renderer() {
   TTF_CloseFont(font);
   SDL_DestroyWindow(sdl_window);
   TTF_Quit();
-  //IMG_QUIT();
   SDL_Quit();
 }
 
