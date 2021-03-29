@@ -28,14 +28,18 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/share/cmake-3.13/Modules/Compiler/GNU-C.cmake"
   "/usr/local/share/cmake-3.13/Modules/Compiler/GNU-CXX.cmake"
   "/usr/local/share/cmake-3.13/Modules/Compiler/GNU.cmake"
+  "/usr/local/share/cmake-3.13/Modules/FindPNG.cmake"
   "/usr/local/share/cmake-3.13/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/local/share/cmake-3.13/Modules/FindPackageMessage.cmake"
+  "/usr/local/share/cmake-3.13/Modules/FindSDL_image.cmake"
   "/usr/local/share/cmake-3.13/Modules/FindThreads.cmake"
+  "/usr/local/share/cmake-3.13/Modules/FindZLIB.cmake"
   "/usr/local/share/cmake-3.13/Modules/Platform/Linux-GNU-C.cmake"
   "/usr/local/share/cmake-3.13/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/local/share/cmake-3.13/Modules/Platform/Linux-GNU.cmake"
   "/usr/local/share/cmake-3.13/Modules/Platform/Linux.cmake"
   "/usr/local/share/cmake-3.13/Modules/Platform/UnixPaths.cmake"
+  "/usr/local/share/cmake-3.13/Modules/SelectLibraryConfigurations.cmake"
   )
 
 # The corresponding makefile is:

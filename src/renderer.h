@@ -5,11 +5,13 @@
 #include <string>
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include "SDL_image.h"
 #include "snake.h"
 
 #include <mutex>
 #include <deque>
 #include <condition_variable>
+
 
 using namespace std;
 
@@ -44,6 +46,10 @@ class Renderer {
   SDL_Window *sdl_window;
   SDL_Renderer *sdl_renderer;
   TTF_Font * font;
+  
+  SDL_Surface *imgSurfaceForStartScreen = NULL;
+  SDL_Texture *imgTextureForStartScreen = NULL;
+  SDL_Rect imgPosition;
   
   const std::size_t screen_width;
   const std::size_t screen_height;

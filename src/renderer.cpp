@@ -34,7 +34,7 @@ Renderer::Renderer(const std::size_t screen_width,
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
 
-  TTF_Init();
+  TTF_Init();  
 
   // Create Window
   sdl_window = SDL_CreateWindow("Snake Game", SDL_WINDOWPOS_CENTERED,
@@ -57,12 +57,28 @@ Renderer::Renderer(const std::size_t screen_width,
   if (nullptr == font) {
     std::cout << "error while opening font\n";
   }
+
+  imgSurfaceForStartScreen = SDL_LoadBMP("../SnakeSymbol.bmp"); 
+        
+  if (nullptr == imgSurfaceForStartScreen) {
+    std::cout << IMG_GetError() << "\n";
+  }
+
+  imgTextureForStartScreen = SDL_CreateTextureFromSurface(sdl_renderer, imgSurfaceForStartScreen);  
+  if (nullptr == imgSurfaceForStartScreen) {
+    std::cout << "error while Creating Texture for Image \n";
+  }
+
+  imgPosition.w = imgSurfaceForStartScreen->w;
+  imgPosition.h = imgSurfaceForStartScreen->h;      
 }
 
 Renderer::~Renderer() {
+  SDL_DestroyTexture(imgTextureForStartScreen);
   TTF_CloseFont(font);
   SDL_DestroyWindow(sdl_window);
   TTF_Quit();
+  //IMG_QUIT();
   SDL_Quit();
 }
 
@@ -113,7 +129,7 @@ void Renderer::Render(Snake const snake) {
   wall.h = screen_height;
   SDL_RenderFillRect(sdl_renderer, &wall);
    
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
+  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0x00, 0xFF);
   SDL_Rect playGround;
   playGround.x = block.w;
   playGround.y = block.h;
@@ -156,7 +172,9 @@ void Renderer::RenderText(int x, int y, const char* text) {
   
   int msgWidth = 0, msgHeight = 0;
   SDL_QueryTexture(texture, NULL, NULL, &msgWidth, &msgHeight);
-  SDL_Rect msgRect = {x, y, msgWidth, msgHeight};
+  
+  int centerPosX = 0.5 * screen_width - 0.5 * msgWidth;
+  SDL_Rect msgRect = {centerPosX, y, msgWidth, msgHeight};
   SDL_RenderCopy(sdl_renderer, texture, NULL, &msgRect);
   
   SDL_DestroyTexture(texture);
@@ -165,10 +183,14 @@ void Renderer::RenderText(int x, int y, const char* text) {
 
 
 void Renderer::ScreenForStart() {
-  SDL_SetRenderDrawColor(sdl_renderer, 0x1E, 0x1E, 0x1E, 0xFF);
+  SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x00, 0x00, 0xFF);
   SDL_RenderClear(sdl_renderer); 
-  RenderText(0, 0, "Snake Game");
-  RenderText(0, 50, "Press space bar to start");  
+  
+  imgPosition.x = 0.5 * screen_width - 0.5 * imgPosition.w;
+  imgPosition.y = 0.5 * screen_height - imgPosition.h - 60;
+  SDL_RenderCopy(sdl_renderer, imgTextureForStartScreen, NULL, &imgPosition);
+  RenderText(0, 0.5 * screen_height - 50 , "Snake Game");
+  RenderText(0, 0.5 * screen_height, "Press space bar to start");  
   
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
@@ -187,9 +209,9 @@ void Renderer::ScreenForDie(int score) {
   SDL_RenderFillRect(sdl_renderer, &screen);
   
   sprintf(charBuffer, "Your Score : %d", score);
-  RenderText(0, 0, charBuffer); 
-  RenderText(0, 50, "Press Up Key to RESTART");
-  RenderText(0, 100, "Press Down Key to closing");
+  RenderText(0, 0.5 * screen_height - 50, charBuffer); 
+  RenderText(0, 0.5 * screen_height, "Press Up Key to RESTART");
+  RenderText(0, 0.5 * screen_height + 30, "Press Down Key to closing");
   // Update Screen
   SDL_RenderPresent(sdl_renderer);
 }
