@@ -2,6 +2,21 @@
 
 This is a Stake game based on the starter code which is provided by Udacity C++ Udacity C++ Nanodegree Program. (base repo: https://github.com/udacity/CppND-Capstone-Snake-Game)
 
+# Rudbic Points
+* The project uses Object Oriented Programming techniques.
+  * Classes for controller/game/renderer/snake is used in the program.
+* Class constructors utilize member initialization lists.
+  * Initialization list is used in game/renderer/snake class constructor.
+* Templates generalize functions in the project.
+  * Applied Templates in message queue in renderer class.
+* The project uses destructors appropriately.
+  * Class destructor is well defined in renderer class.
+* The project uses multithreading.
+  * There are 2 thread : main and thread for renderer.
+
+* A mutex or lock is used in the project. A condition variable is used in the project.
+  * In renderer class, MessageQueue concept is applied. To apply MessageQueue concept, mutex and condition variable are used.
+
 ## Dependencies for Running Locally
 * cmake >= 3.7
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
